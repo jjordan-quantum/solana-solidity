@@ -401,6 +401,16 @@ export class Contract {
         const payer = options?.payer || this.payer;
         if (!payer) throw new MissingPayerAccountError();
 
+        //console.log('Calling contract!');
+        //console.log('Fragment: ');
+        //console.log(fragment);
+        //console.log('ReturnResult: ');
+        //console.log(returnResult);
+        //console.log('Args: ');
+        //console.log(args);
+        //console.log('Options: ');
+        //console.log(options);
+
         const {
             accounts = [],
             writableAccounts = [],

@@ -1,5 +1,7 @@
 # `@solana/solidity`
 
+## SEE JJ_README.md for quick startup with npm and to deploy / test the provided ERC20 / ERC20Caller contracts!
+
 The [Solang Compiler](https://github.com/hyperledger-labs/solang) compiles Solidity contracts to native Solana BPF programs.
 
 This TypeScript library, inspired by [Ethers.js](https://github.com/ethers-io/ethers.js), can deploy and interact with Solidity contracts on Solana.

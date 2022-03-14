@@ -34,6 +34,7 @@
         "test": "yarn test:unit; yarn test:examples",
         "test:unit": "mocha test/unit/**/*.test.ts",
         "test:examples": "mocha test/examples/**/*.test.ts",
+        "test:erc20": "mocha test/examples/erc20/erc20.test.ts && mocha test/examples/erc20/erc20-caller.test.ts",
         "fmt": "prettier --write '{*,**/*}.{js,ts,jsx,tsx,json}'",
         "lint": "eslint --ext .ts . && prettier --check '{*,**/*}.{js,ts,jsx,tsx,json}'",
         "lint:fix": "eslint --fix --ext .ts . && yarn fmt",
@@ -46,7 +47,8 @@
         "@ethersproject/bytes": "^5.5.0",
         "@ethersproject/keccak256": "^5.5.0",
         "@ethersproject/properties": "^5.5.0",
-        "@solana/web3.js": "^1.30.2"
+        "@solana/web3.js": "^1.30.2",
+        "dotenv": "^16.0.0"
     },
     "devDependencies": {
         "@ethersproject/contracts": "^5.5.0",
