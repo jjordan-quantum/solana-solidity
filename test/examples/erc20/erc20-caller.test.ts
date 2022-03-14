@@ -1,6 +1,7 @@
 import { LogDescription } from '@ethersproject/abi';
 import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import expect from 'expect';
+import bs58 from 'bs58';
 
 import { Contract, publicKeyToHex } from '../../../src';
 import { loadContract, loadCallerContract } from '../utils';
@@ -9,7 +10,7 @@ const NAME = 'Solana';
 const SYMBOL = 'SOL';
 const TOTAL_SUPPLY = 10000;
 
-describe('ERC20', () => {
+describe('ERC20Caller', () => {
     let contract: Contract;
     let payerETHAddress: string;
     let callerContract: Contract;
@@ -32,6 +33,25 @@ describe('ERC20', () => {
         ({ callerContract } = await loadCallerContract(__dirname, payer, connection));
 
         expect(!!(callerContract)).toEqual(true);
+    });
+
+    it('calls an external ERC20 contract with a read-only function', async function () {
+        this.timeout(150000);
+
+        callerContract = new Contract(
+            callerContract.connection,
+            callerContract.program,
+            callerContract.storage,
+            callerContract.abi,
+            callerContract.payer
+        );
+
+        const tokenAccount = publicKeyToHex(tokenProgramId);
+        const base58Address = bs58.encode(new Buffer(tokenAccount.slice(2), 'hex'));
+        const name = await callerContract.getERC20TokenName(tokenAccount);
+        console.log('ERC20 token name: ' + name);
+
+        expect(!!(name)).toEqual(true);
     });
 
     it('calls an external ERC20 contract with a mutating function using selector', async function () {

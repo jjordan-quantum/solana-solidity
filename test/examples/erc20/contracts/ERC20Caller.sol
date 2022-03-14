@@ -1,10 +1,20 @@
 import "ERC20.sol";
 contract ERC20Caller {
 
+    function getERC20TokenName(address tokenAddress)
+        public
+        view
+        virtual
+        returns (string memory)
+    {
+        ERC20 token = ERC20(tokenAddress);
+        return token.name();
+    }
+
     function callERC20ApproveWithSelector(address tokenAddress, address spender, uint256 amount)
-    public
-    virtual
-    returns (bool)
+        public
+        virtual
+        returns (bool)
     {
         ERC20 token = ERC20(tokenAddress);
         bytes data = abi.encodeWithSignature("approve(address,uint256)", spender, uint256(amount));
@@ -16,9 +26,9 @@ contract ERC20Caller {
     }
 
     function callERC20ApproveByFunction(address tokenAddress, address spender, uint256 amount)
-    public
-    virtual
-    returns (bool)
+        public
+        virtual
+        returns (bool)
     {
         ERC20 token = ERC20(tokenAddress);
         bool res = token.approve(spender, amount);

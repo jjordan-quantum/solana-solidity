@@ -23,6 +23,7 @@ import {
 } from './errors';
 import { LogsParser, parseLogTopic, sendAndConfirmTransactionWithLogs, simulateTransactionWithLogs } from './logs';
 import { ABI, encodeSeeds, ProgramDerivedAddress } from './utils';
+import bs58 from 'bs58';
 
 /** Accounts, signers, and other parameters for calling a contract function or constructor */
 export interface ContractCallOptions {
@@ -426,6 +427,11 @@ export class Contract {
                 preflightCommitment: 'processed',
             },
         } = options ?? {};
+
+        
+        if(fragment && fragment.name && fragment.name === 'getERC20TokenName') {
+            accounts.push(new PublicKey(bs58.encode(new Buffer(args[0].slice(2), 'hex'))));
+        }
 
         const seeds = programDerivedAddresses.map(({ seed }) => seed);
         const input = this.interface.encodeFunctionData(fragment, args);
